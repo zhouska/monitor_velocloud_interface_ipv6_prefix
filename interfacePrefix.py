@@ -8,7 +8,7 @@ edge_url = f"{base_url}/edge/getEdge"
 edges_url = f"{base_url}/enterprise/getEnterpriseEdges"
 username = "<your user>"
 password = "<your password>"
-prefix = '<your prefix assigned by ISP>'
+prefix = "<your prefix assigned by ISP>"
 edge_id = <your edge id>
 interface = "<your interface>"
 
