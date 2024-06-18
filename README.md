@@ -3,7 +3,7 @@ Your DHCPv6 prefix delegation (DP) assigned prefix from your ISP can change from
 
 Your can use attached python script to monitor the changes and run it from cron or other tools like HomeAssistant. In this case you need to:
 
-1. Save the file to `/config` directory and make it executable (`chmod +x`)
+1. Save the python script to `/config` directory and make it executable (`chmod +x`)
 2. Create following section in `configuration.yaml` file:
 ```
 command_line:
@@ -14,7 +14,7 @@ command_line:
     scan_interval: 3600
 ```
 3. Restart the HomeAssistant for changes to make effect
-4. Create an automation, for example:
+4. Create an automation to monitor the prefix changes, for example:
 ```
 alias: SD-WAN IPv6 prefix check
 description: ""
@@ -36,3 +36,5 @@ action:
       target: <your_email>
 mode: single
 ```
+
+Should you need to debug the python script in HomeAssistant, follow a guide such as this https://community.home-assistant.io/t/execute-in-home-assistant-container-context/415031/4. The idea here is to launch it in homeassistant container scope...
