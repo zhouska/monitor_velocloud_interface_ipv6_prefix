@@ -36,7 +36,7 @@ condition:
   - condition: not
     conditions:
       - condition: template
-        value_template: "{{ is_state('sensor.sdwan_ipv6_prefix', 'Prefix matches') }}"
+        value_template: "{{ 'Prefix matches' in states.sensor.sdwan_ipv6_prefix.state }}"
 action:
   - service: notify.<your_email>
     metadata: {}
