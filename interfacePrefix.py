@@ -1,5 +1,5 @@
-import requests
-import ipaddress
+import requests, ipaddress
+from datetime import datetime
 
 # Define your credentials and endpoint URLs
 base_url = "https://<your_vco>/portal/rest"
@@ -11,6 +11,7 @@ password = "<your password>"
 prefix = "<your prefix assigned by ISP>"
 edge_id = <your edge id>
 interface = "<your interface>"
+date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Define the login payload
 login_payload = {
@@ -57,13 +58,13 @@ if edge_response.status_code == 200:
             prefix_network = ipaddress.IPv6Network(prefix)
 
             if interface_ip in prefix_network:
-                print(f"Prefix matches")
+                print(f"{date} > Prefix matches")
             else:
-                print(f"Prefix doesn't match")
+                print(f"{date} > Prefix doesn't match")
         else:
-            print(f"IPv6 address not found for {interface} interface.")
+            print(f"{date} > IPv6 address not found for {interface} interface.")
     else:
-        print(f"{interface} interface not found.")
+        print(f"{date} > {interface} interface not found.")
 else:
     print(f"Failed to get edge details: {edge_response.status_code}")
     print(edge_response.text)
