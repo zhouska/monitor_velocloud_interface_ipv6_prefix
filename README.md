@@ -1,7 +1,7 @@
 # How to monitor Velocloud SD-WAN DHCPv6 IPv6 interface prefix
-Your DHCPv6 prefix delegation (DP) assigned prefix from your ISP can change from time to time. In more complex network designs it can be problematic to keep track of the changes as Velocloud SD-WAN VCO doesn't expose the DHCPv6 IP address on routed interface.
+Your DHCPv6 prefix delegation (DP) assigned prefix from your ISP can change from time to time. In more complex network designs it can be problematic to keep track of the changes.
 
-Your can use attached python script to monitor the changes and run it from cron or other tools like HomeAssistant. The python script uses API v1 and username/password authentication. 
+Your can use attached python script to monitor these changes and run it from cron or other tools like HomeAssistant. The python script uses API v1 and username/password authentication. 
 
 In order to make python script work, you need to configure:
 
@@ -22,9 +22,17 @@ command_line:
     unique_id: sdwan_ipv6_prefix
     command: "python3 /config/interfacePrefix.py"
     scan_interval: 3600
+    value_template: "{{ value_json.state }}"
+    json_attributes_path: "$.attributes"
+    json_attributes:
+      - current_ipv6_address
+      - expected_prefix
+      - interface
+      - last_check_time
+      - message
 ```
 3. Restart the HomeAssistant for changes to make effect
-4. Create an automation to monitor the prefix changes, for example:
+4. Create an automation to monitor the prefix changes, and in addition moniro any of the attributes, for example:
 ```
 alias: SD-WAN IPv6 prefix check
 description: ""
@@ -48,3 +56,5 @@ mode: single
 ```
 
 Should you need to debug the python script in HomeAssistant, follow a guide such as this https://community.home-assistant.io/t/execute-in-home-assistant-container-context/415031/4 or https://community.home-assistant.io/t/sshing-from-a-command-line-sensor-or-shell-command/258731. The idea here is to launch it in homeassistant container scope...
+
+Don't forget to set the orchestrator WAN interface in question to ``DHCP Stateless`` mode, assuming it is DHCPv6 PD changes you want to track, otherwise the ``IPv6Address`` field might not get populated.
