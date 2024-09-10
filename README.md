@@ -1,7 +1,7 @@
 # How to monitor Velocloud SD-WAN DHCPv6 IPv6 interface prefix
 Your DHCPv6 prefix delegation (DP) assigned prefix from your ISP can change from time to time. In more complex network designs it can be problematic to keep track of the changes.
 
-Your can use attached python script to monitor these changes and run it from cron or other tools like HomeAssistant. The python script uses API v1 and username/password authentication. 
+Your can use attached python script to monitor these changes and run it from cron or other tools like HomeAssistant. The python script uses API v1 and username/password authentication. The API documentation can be found here: https://developer.broadcom.com/xapis/velocloud-orchestrator-api/5.4.0/
 
 In order to make python script work, you need to configure:
 
